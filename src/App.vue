@@ -1,17 +1,36 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Have been added {{itemList.length}} items.</h1>
+    <input type="text" v-model="newItem" placeholder="Add item.." />
+    <button @click="addItem">
+      Add
+    </button>
+    <ItemComponent v-for="(item, index) in itemList" 
+    :element="item" :key="index" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ItemComponent from './components/ItemComponent.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ItemComponent
+  },
+  data() {
+    return {
+      newItem: "",
+      itemList: []
+    }
+  },
+  methods: {
+    addItem: function() {
+      this.itemList.push(this.newItem);
+      this.newItem = "";
+    }
   }
 }
 </script>
